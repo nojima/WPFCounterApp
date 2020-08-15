@@ -9,43 +9,29 @@ namespace CounterApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Counter counter;
+        private readonly MainWindowViewModel viewModel;
 
-        public MainWindow(Counter counter)
+        public MainWindow(MainWindowViewModel viewModel)
         {
-            this.counter = counter;
-
+            this.viewModel = viewModel;
+            DataContext = viewModel;
             InitializeComponent();
-            UpdateView();
-            counter.CountChanged += UpdateView;
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            counter.CountChanged -= UpdateView;
+            viewModel.Dispose();
         }
 
         private void btnIncrement_Click(object sender, RoutedEventArgs e)
         {
-            counter.Increment();
+            viewModel.Increment();
         }
 
         private void btnDecrement_Click(object sender, RoutedEventArgs e)
         {
-            counter.Decrement();
-        }
-
-        private void UpdateView()
-        {
-            tbCounter.Text = counter.Count.ToString("+#;-#;0"); // +符号を表示する
-
-            if (counter.Count < 0)
-                tbCounter.Foreground = Brushes.Red;
-            else if (counter.Count > 0)
-                tbCounter.Foreground = Brushes.Green;
-            else
-                tbCounter.Foreground = Brushes.Gray;
+            viewModel.Decrement();
         }
     }
 }

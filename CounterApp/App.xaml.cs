@@ -10,7 +10,8 @@ namespace CounterApp
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var counter = new Counter();
-            var window = new MainWindow(counter);
+            var viewModel = new MainWindowViewModel(counter);
+            var window = new MainWindow(viewModel);
             window.Show();
         }
     }
