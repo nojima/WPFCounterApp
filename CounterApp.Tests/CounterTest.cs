@@ -1,14 +1,24 @@
-﻿using Xunit;
+﻿using System;
+using System.Linq;
+using System.Reactive.Linq;
+using Xunit;
 
 namespace CounterApp.Tests
 {
+    static class ObservableExtension {
+        public static int Current(this IObservable<int> observable)
+        {
+            return observable.Latest().First();
+        }
+    }
+
     public class CounterTest
     {
         [Fact(DisplayName = "初期値が 0 であること")]
         public void InitialValueIsZero()
         {
             var counter = new Counter();
-            Assert.Equal(0, counter.Count.Value);
+            Assert.Equal(0, counter.Count.Current());
         }
 
         [Theory(DisplayName = "n回インクリメントする")]
@@ -20,7 +30,7 @@ namespace CounterApp.Tests
             var counter = new Counter();
             for (int i = 0; i < n; i++)
                 counter.Increment();
-            Assert.Equal(expectedCount, counter.Count.Value);
+            Assert.Equal(expectedCount, counter.Count.Current());
         }
 
         [Theory(DisplayName = "n回デクリメントする")]
@@ -32,7 +42,7 @@ namespace CounterApp.Tests
             var counter = new Counter();
             for (int i = 0; i < n; i++)
                 counter.Decrement();
-            Assert.Equal(expectedCount, counter.Count.Value);
+            Assert.Equal(expectedCount, counter.Count.Current());
         }
     }
 }
