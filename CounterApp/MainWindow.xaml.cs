@@ -9,10 +9,12 @@ namespace CounterApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Counter counter = new Counter();
+        private readonly Counter counter;
 
-        public MainWindow()
+        public MainWindow(Counter counter)
         {
+            this.counter = counter;
+
             InitializeComponent();
             UpdateView();
             counter.CountChanged += UpdateView;
