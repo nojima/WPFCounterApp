@@ -16,8 +16,8 @@ namespace CounterApp
 
         private readonly CompositeDisposable disposable = new CompositeDisposable();
 
-        public ReadOnlyReactivePropertySlim<string> CounterText { get; }
-        public ReadOnlyReactivePropertySlim<Brush> CounterTextForeground { get; }
+        public IReadOnlyReactiveProperty<string> CounterText { get; }
+        public IReadOnlyReactiveProperty<Brush> CounterTextForeground { get; }
         public ReactiveCommand IncrementCommand { get; }
         public ReactiveCommand DecrementCommand { get; }
 
