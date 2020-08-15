@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CounterApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="Counter" SizeToContent="WidthAndHeight">
+    <StackPanel Margin="100" Width="100">
+        <Button Name="btnIncrement" Click="btnIncrement_Click">▲</Button>
+        <Border Height="80">
+            <TextBlock Name="tbCounter"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="0"/>
+        </Border>
+        <Button Name="btnDecrement" Click="btnDecrement_Click">▼</Button>
+    </StackPanel>
 </Window>
