@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
 
 namespace CounterApp
@@ -14,18 +15,23 @@ namespace CounterApp
         {
             InitializeComponent();
             UpdateView();
+            counter.CountChanged += UpdateView;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            counter.CountChanged -= UpdateView;
         }
 
         private void btnIncrement_Click(object sender, RoutedEventArgs e)
         {
             counter.Increment();
-            UpdateView();
         }
 
         private void btnDecrement_Click(object sender, RoutedEventArgs e)
         {
             counter.Decrement();
-            UpdateView();
         }
 
         private void UpdateView()
