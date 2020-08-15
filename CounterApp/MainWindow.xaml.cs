@@ -8,10 +8,7 @@ namespace CounterApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int MAX_COUNT = 10;
-        private const int MIN_COUNT = -10;
-
-        private int count = 0;
+        private readonly Counter counter = new Counter();
 
         public MainWindow()
         {
@@ -21,25 +18,23 @@ namespace CounterApp
 
         private void btnIncrement_Click(object sender, RoutedEventArgs e)
         {
-            if (count < MAX_COUNT)
-                count++;
+            counter.Increment();
             UpdateView();
         }
 
         private void btnDecrement_Click(object sender, RoutedEventArgs e)
         {
-            if (count > MIN_COUNT)
-                count--;
+            counter.Decrement();
             UpdateView();
         }
 
         private void UpdateView()
         {
-            tbCounter.Text = count.ToString("+#;-#;0"); // +符号を表示する
+            tbCounter.Text = counter.Count.ToString("+#;-#;0"); // +符号を表示する
 
-            if (count < 0)
+            if (counter.Count < 0)
                 tbCounter.Foreground = Brushes.Red;
-            else if (count > 0)
+            else if (counter.Count > 0)
                 tbCounter.Foreground = Brushes.Green;
             else
                 tbCounter.Foreground = Brushes.Gray;
