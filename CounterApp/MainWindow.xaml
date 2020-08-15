@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Counter" SizeToContent="WidthAndHeight">
     <StackPanel Margin="100" Width="100">
-        <Button Name="btnIncrement" Click="btnIncrement_Click">▲</Button>
+        <Button Name="btnIncrement" Command="{Binding IncrementCommand}">▲</Button>
         <Border Height="80">
             <TextBlock Name="tbCounter"
                        FontSize="30"
@@ -17,6 +17,6 @@
                        Foreground="{Binding Path=CounterTextForeground.Value, Mode=OneWay}"
                        Text="{Binding Path=CounterText.Value, Mode=OneWay}"/>
         </Border>
-        <Button Name="btnDecrement" Click="btnDecrement_Click">▼</Button>
+        <Button Name="btnDecrement" Command="{Binding DecrementCommand}">▼</Button>
     </StackPanel>
 </Window>

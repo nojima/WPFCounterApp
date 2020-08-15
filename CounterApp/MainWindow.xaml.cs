@@ -22,15 +22,5 @@ namespace CounterApp
             base.OnClosed(e);
             viewModel.Dispose();
         }
-
-        private void btnIncrement_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.Increment();
-        }
-
-        private void btnDecrement_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.Decrement();
-        }
     }
 }

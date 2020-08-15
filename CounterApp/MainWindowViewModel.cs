@@ -10,15 +10,13 @@ namespace CounterApp
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly Counter counter;
-
         public ReadOnlyReactivePropertySlim<string> CounterText { get; }
         public ReadOnlyReactivePropertySlim<Brush> CounterTextForeground { get; }
+        public ReactiveCommand IncrementCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand DecrementCommand { get; } = new ReactiveCommand();
 
         public MainWindowViewModel(Counter counter)
         {
-            this.counter = counter;
-
             CounterText = counter.Count
                 .Select(c => c.ToString("+#;-#;0"))
                 .ToReadOnlyReactivePropertySlim();
@@ -33,22 +31,17 @@ namespace CounterApp
                     return (Brush)Brushes.Gray;
                 })
                 .ToReadOnlyReactivePropertySlim();
+
+            IncrementCommand.Subscribe(() => counter.Increment());
+            DecrementCommand.Subscribe(() => counter.Decrement());
         }
 
         public void Dispose()
         {
             CounterText.Dispose();
             CounterTextForeground.Dispose();
-        }
-
-        public void Increment()
-        {
-            counter.Increment();
-        }
-
-        public void Decrement()
-        {
-            counter.Decrement();
+            IncrementCommand.Dispose();
+            DecrementCommand.Dispose();
         }
     }
 }
