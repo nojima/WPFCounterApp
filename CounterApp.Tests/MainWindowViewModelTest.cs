@@ -13,7 +13,7 @@ namespace CounterApp.Tests
         {
             var counter = new Counter(count);
             using var viewModel = new MainWindowViewModel(counter);
-            Assert.Equal(expectedText, viewModel.CounterText);
+            Assert.Equal(expectedText, viewModel.CounterText.Value);
         }
 
         public static object[][] CounterTextForegroundInput = new object[][]
@@ -28,7 +28,7 @@ namespace CounterApp.Tests
         {
             var counter = new Counter(count);
             using var viewModel = new MainWindowViewModel(counter);
-            Assert.Equal(expectedBrush, viewModel.CounterTextForeground);
+            Assert.Equal(expectedBrush, viewModel.CounterTextForeground.Value);
         }
     }
 }

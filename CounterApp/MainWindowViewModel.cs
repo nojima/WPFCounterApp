@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reactive.Linq;
 using System.Windows.Media;
+using Reactive.Bindings;
 
 namespace CounterApp
 {
@@ -10,37 +12,33 @@ namespace CounterApp
 
         private readonly Counter counter;
 
-        public MainWindowViewModel(Counter counter) {
+        public ReadOnlyReactivePropertySlim<string> CounterText { get; }
+        public ReadOnlyReactivePropertySlim<Brush> CounterTextForeground { get; }
+
+        public MainWindowViewModel(Counter counter)
+        {
             this.counter = counter;
-            counter.CountChanged += OnCountChanged;
+
+            CounterText = counter.Count
+                .Select(c => c.ToString("+#;-#;0"))
+                .ToReadOnlyReactivePropertySlim();
+
+            CounterTextForeground = counter.Count
+                .Select(c =>
+                {
+                    if (c < 0)
+                        return (Brush)Brushes.Red;
+                    if (c > 0)
+                        return (Brush)Brushes.Green;
+                    return (Brush)Brushes.Gray;
+                })
+                .ToReadOnlyReactivePropertySlim();
         }
 
         public void Dispose()
         {
-            counter.CountChanged -= OnCountChanged;
-        }
-
-        private void OnCountChanged()
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CounterText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CounterTextForeground)));
-        }
-
-        public string CounterText
-        {
-            get => counter.Count.ToString("+#;-#;0"); // +符号を表示する
-        }
-
-        public Brush CounterTextForeground
-        {
-            get
-            {
-                if (counter.Count < 0)
-                    return Brushes.Red;
-                if (counter.Count > 0)
-                    return Brushes.Green;
-                return Brushes.Gray;
-            }
+            CounterText.Dispose();
+            CounterTextForeground.Dispose();
         }
 
         public void Increment()

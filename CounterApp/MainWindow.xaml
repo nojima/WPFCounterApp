@@ -14,8 +14,8 @@
                        FontWeight="Bold"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
-                       Foreground="{Binding Path=CounterTextForeground, Mode=OneWay}"
-                       Text="{Binding Path=CounterText, Mode=OneWay}"/>
+                       Foreground="{Binding Path=CounterTextForeground.Value, Mode=OneWay}"
+                       Text="{Binding Path=CounterText.Value, Mode=OneWay}"/>
         </Border>
         <Button Name="btnDecrement" Click="btnDecrement_Click">▼</Button>
     </StackPanel>

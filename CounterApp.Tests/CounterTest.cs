@@ -8,7 +8,7 @@ namespace CounterApp.Tests
         public void InitialValueIsZero()
         {
             var counter = new Counter();
-            Assert.Equal(0, counter.Count);
+            Assert.Equal(0, counter.Count.Value);
         }
 
         [Theory(DisplayName = "n回インクリメントする")]
@@ -20,7 +20,7 @@ namespace CounterApp.Tests
             var counter = new Counter();
             for (int i = 0; i < n; i++)
                 counter.Increment();
-            Assert.Equal(expectedCount, counter.Count);
+            Assert.Equal(expectedCount, counter.Count.Value);
         }
 
         [Theory(DisplayName = "n回デクリメントする")]
@@ -32,7 +32,7 @@ namespace CounterApp.Tests
             var counter = new Counter();
             for (int i = 0; i < n; i++)
                 counter.Decrement();
-            Assert.Equal(expectedCount, counter.Count);
+            Assert.Equal(expectedCount, counter.Count.Value);
         }
     }
 }
