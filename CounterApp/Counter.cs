@@ -7,23 +7,27 @@ namespace CounterApp
         private const int MAX_COUNT = 10;
         private const int MIN_COUNT = -10;
 
-        public ReactivePropertySlim<int> Count { get; }
-
+        private readonly ReactivePropertySlim<int> count;
+ 
         public Counter(int initialValue = 0)
         {
-            Count = new ReactivePropertySlim<int>(initialValue);
+            count = new ReactivePropertySlim<int>(initialValue);
+        }
+
+        public IReadOnlyReactiveProperty<int> Count {
+            get => count;
         }
 
         public void Increment()
         {
-            if (Count.Value < MAX_COUNT)
-                Count.Value++;
+            if (count.Value < MAX_COUNT)
+                count.Value++;
         }
 
         public void Decrement()
         {
-            if (Count.Value > MIN_COUNT)
-                Count.Value--;
+            if (count.Value > MIN_COUNT)
+                count.Value--;
         }
     }
 }
