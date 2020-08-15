@@ -7,7 +7,12 @@
         private const int MAX_COUNT = 10;
         private const int MIN_COUNT = -10;
 
-        private int count = 0;
+        private int count;
+
+        public Counter(int initialValue = 0)
+        {
+            count = initialValue;
+        }
 
         public int Count
         {
